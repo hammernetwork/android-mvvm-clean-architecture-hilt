@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@+id/main"
+    tools:ignore="UnusedIds">
+
+    <fragment
+        android:id="@+id/main"
+        android:name="com.github.android.example.feature.main.presentation.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/openScreen1"
+            app:destination="@id/screen1" />
+
+        <action
+            android:id="@+id/openScreen2"
+            app:destination="@id/screen2" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/screen1"
+        android:name="com.github.android.example.feature.feature1.presentation.Screen1Fragment"
+        android:label="screen1_fragment"
+        tools:layout="@layout/fragment_screen1" />
+
+    <fragment
+        android:id="@+id/screen2"
+        android:name="com.github.android.example.feature.feature2.presentation.Screen2Fragment"
+        android:label="screen2_fragment"
+        tools:layout="@layout/fragment_screen2" />
+
+</navigation>

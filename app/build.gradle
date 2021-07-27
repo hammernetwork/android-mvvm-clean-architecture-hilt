@@ -1,0 +1,91 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        applicationId "com.github.android.example"
+
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFile file("proguard-test-rules.pro")
+            // todo@patches Add signing
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // todo@patches Add signing
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "$JavaVersion.VERSION_1_8"
+    }
+
+    lintOptions {
+        checkAllWarnings true
+        showAll true
+        explainIssues true
+        abortOnError true
+        warningsAsErrors true
+        warning 'NewerVersionAvailable',
+                'OutdatedLibrary',
+                'GradleDependency', // There are multiple possible checks for a new version of a dependency being available
+                'VectorPath',
+                'IconMissingDensityFolder'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation project(path: ':shared')
+
+    // AndroidX
+    implementation "androidx.annotation:annotation:$androidx_annotation_version"
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraintlayout_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$androidx_navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$androidx_navigation_version"
+    implementation "androidx.core:core-ktx:$androidx_core_ktx_version"
+
+    // Google
+    implementation "com.google.android.material:material:$google_material_version"
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_viewmodel_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_compiler_version"
+    implementation "androidx.hilt:hilt-navigation-fragment:$hilt_navigation_fragment_version"
+}
